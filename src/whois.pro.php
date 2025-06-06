@@ -25,16 +25,16 @@
 require_once('whois.parser.php');
 
 if (!defined('__PRO_HANDLER__'))
-    define('__PRO_HANDLER__', 1);
+	define('__PRO_HANDLER__', 1);
 
-class pro_handler {
-
-    function parse($data, $query) {
-        $r = array();
-        $r['regrinfo'] = generic_parser_b($data['rawdata']);
-        $r['regyinfo']['referrer'] = 'http://www.registrypro.pro';
-        $r['regyinfo']['registrar'] = 'RegistryPRO';
-        return $r;
-    }
-
+class pro_handler
+{
+	function parse($data, $query)
+	{
+		$r = array();
+		$r['regrinfo'] = generic_parser_b($data['rawdata']);
+		$r['regyinfo']['referrer'] = 'http://www.registrypro.pro';
+		$r['regyinfo']['registrar'] = 'RegistryPRO';
+		return $r;
+	}
 }

@@ -23,28 +23,28 @@
  */
 
 if (!defined('__HU_HANDLER__'))
-    define('__HU_HANDLER__', 1);
+	define('__HU_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class hu_handler {
+class hu_handler
+{
+	function parse($data_str, $query)
+	{
+		$items = array(
+			'domain:' => 'domain.name',
+			'record created:' => 'domain.created'
+		);
 
-    function parse($data_str, $query) {
-        $items = array(
-            'domain:' => 'domain.name',
-            'record created:' => 'domain.created'
-        );
+		$r = array();
+		$r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
 
-        $r = array();
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], $items, 'ymd');
+		if (isset($r['regrinfo']['domain']))
+		    $r['regrinfo']['registered'] = 'yes';
+		else
+		    $r['regrinfo']['registered'] = 'no';
 
-        if (isset($r['regrinfo']['domain']))
-            $r['regrinfo']['registered'] = 'yes';
-        else
-            $r['regrinfo']['registered'] = 'no';
-
-        $r['regyinfo'] = array('referrer' => 'http://www.nic.hu', 'registrar' => 'HUNIC');
-        return $r;
+		$r['regyinfo'] = array('referrer' => 'http://www.nic.hu', 'registrar' => 'HUNIC');
+		return $r;
     }
-
 }

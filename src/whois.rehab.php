@@ -29,14 +29,14 @@ if (!defined('__REHAB_HANDLER__'))
 require_once('whois.parser.php');
 
 class rehab_handler
-	{
+{
 	function parse($data_str, $query)
 		{
 		$r['regrinfo'] = generic_parser_b($data_str['rawdata']);
 		$r['regyinfo'] = array(
-                          'referrer' => 'https://www.identity.digital/',
-                          'registrar' => 'Identity Digital'
-                          );
+			'referrer' => 'https://www.identity.digital/',
+			'registrar' => 'Identity Digital'
+		);
 		return $r;
-		}
 	}
+}

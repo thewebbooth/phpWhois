@@ -23,20 +23,20 @@
  */
 
 if (!defined('__US_HANDLER__'))
-    define('__US_HANDLER__', 1);
+	define('__US_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class us_handler {
-
-    function parse($data_str, $query) {
-        $r = array();
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], array(), '-md--y');
-        $r['regyinfo'] = array(
-            'referrer' => 'http://www.neustar.us',
-            'registrar' => 'NEUSTAR INC.'
-        );
-        return $r;
-    }
-
+class us_handler
+{
+	function parse($data_str, $query)
+	{
+		$r = array();
+		$r['regrinfo'] = generic_parser_b($data_str['rawdata'], array(), '-md--y');
+		$r['regyinfo'] = array(
+			'referrer' => 'http://www.neustar.us',
+			'registrar' => 'NEUSTAR INC.'
+		);
+		return $r;
+	}
 }
