@@ -23,20 +23,20 @@
  */
 
 if (!defined('__ME_HANDLER__'))
-    define('__ME_HANDLER__', 1);
+	define('__ME_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class me_handler {
-
-    function parse($data_str, $query) {
-        $r = array();
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
-        $r['regyinfo'] = array(
-            'referrer' => 'http://domain.me',
-            'registrar' => 'doMEn'
-        );
-        return $r;
-    }
-
+class me_handler
+{
+	function parse($data_str, $query)
+	{
+		$r = array();
+		$r['regrinfo'] = generic_parser_b($data_str['rawdata']);
+		$r['regyinfo'] = array(
+			'referrer' => 'http://domain.me',
+			'registrar' => 'doMEn'
+		);
+		return $r;
+	}
 }

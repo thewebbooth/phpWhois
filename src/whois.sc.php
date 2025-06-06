@@ -23,20 +23,20 @@
  */
 
 if (!defined('__SC_HANDLER__'))
-    define('__SC_HANDLER__', 1);
+	define('__SC_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class sc_handler {
-
-    function parse($data_str, $query) {
-        $r = array();
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], array(), 'dmy');
-        $r['regyinfo'] = array(
-            'referrer' => 'http://www.nic.sc',
-            'registrar' => 'VCS (Pty) Limited'
-        );
-        return $r;
-    }
-
+class sc_handler
+{
+	function parse($data_str, $query)
+	{
+		$r = array();
+		$r['regrinfo'] = generic_parser_b($data_str['rawdata'], array(), 'dmy');
+		$r['regyinfo'] = array(
+			'referrer' => 'http://www.nic.sc',
+			'registrar' => 'VCS (Pty) Limited'
+		);
+		return $r;
+	}
 }

@@ -23,13 +23,14 @@
  */
 
 if (!defined('__TEL_HANDLER__'))
-    define('__TEL_HANDLER__', 1);
+	define('__TEL_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class tel_handler {
-
-    function parse($data_str, $query) {
+class tel_handler
+{
+    function parse($data_str, $query)
+    {
         $r = array();
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], array(), '-md--y');
         $r['regyinfo'] = array(
@@ -38,5 +39,4 @@ class tel_handler {
         );
         return $r;
     }
-
 }
