@@ -79,5 +79,4 @@ class ripe_handler {
         $r['regyinfo']['registrar'] = 'RIPE Network Coordination Centre';
         return $r;
     }
-
 }

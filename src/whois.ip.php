@@ -250,5 +250,4 @@ class ip_handler extends WhoisClient {
         $result['regrinfo'][$key][] = $newres['regrinfo'][$key];
         return $result;
     }
-
 }
