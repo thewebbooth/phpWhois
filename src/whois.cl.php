@@ -23,31 +23,32 @@
  */
 
 if (!defined('__CL_HANDLER__'))
-    define('__CL_HANDLER__', 1);
+	define('__CL_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class cl_handler {
+class cl_handler
+{
+	function parse($data_str, $query)
+	{
+		$items = array(
+			'admin' =>			'(Administrative Contact)',
+			'tech' =>			'Contacto Técnico (Technical Contact):',
+			'domain.nserver' =>	'Servidores de nombre (Domain servers):',
+			'domain.changed' =>	'(Database last updated on):'
+		);
 
-    function parse($data_str, $query) {
-        $items = array(
-            'admin' => '(Administrative Contact)',
-            'tech' => 'Contacto Técnico (Technical Contact):',
-            'domain.nserver' => 'Servidores de nombre (Domain servers):',
-            'domain.changed' => '(Database last updated on):'
-        );
+		$trans = array(
+			'organización:' =>	'organization',
+			'nombre      :' =>	'name'
+		);
 
-        $trans = array(
-            'organización:' => 'organization',
-            'nombre      :' => 'name');
-
-        $r = array();
-        $r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'd-m-y', $trans);
-        $r['regyinfo'] = array(
-            'referrer' => 'http://www.nic.cl',
-            'registrar' => 'NIC Chile'
-        );
-        return $r;
-    }
-
+		$r = array();
+		$r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'd-m-y', $trans);
+		$r['regyinfo'] = array(
+			'referrer' => 'http://www.nic.cl',
+			'registrar' => 'NIC Chile'
+		);
+		return $r;
+	}
 }

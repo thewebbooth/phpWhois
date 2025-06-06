@@ -48,16 +48,19 @@ class Utils extends Whois
      */
     public function debugObject($obj, $indent = 0)
     {
-        if (is_array($obj)) {
+        if (is_array($obj))
+        {
             $return = '';
-            foreach ($obj as $k => $v) {
+            foreach($obj as $k => $v)
+            {
                 $return .= str_repeat('&nbsp;', $indent);
-                if (is_array($v)) {
+                if( is_array( $v ) )
+                {
                     $return .= $k . "->Array\n";
                     $return .= $this->debugObject($v, $indent + 1);
-                } else {
-                    $return .= $k . "->$v\n";
                 }
+            	else
+                    $return .= $k . "->$v\n";
             }
             return $return;
         }
@@ -73,7 +76,6 @@ class Utils extends Whois
      */
     public function showHTML($result, $link_myself = true, $params = 'query=$0&amp;output=nice')
     {
-
         // adds links for HTML output
 
         $email_regex = "/([-_\w\.]+)(@)([-_\w\.]+)\b/i";
@@ -83,66 +85,56 @@ class Utils extends Whois
         $out = '';
         $lempty = true;
 
-        foreach ($result['rawdata'] as $line) {
+        foreach($result['rawdata'] as $line)
+        {
             $line = trim($line);
 
-            if ($line == '') {
-                if ($lempty) {
+            if ($line == '')
+            {
+                if ($lempty)
                     continue;
-                } else {
+                else
                     $lempty = true;
-                }
-            } else {
-                $lempty = false;
             }
+        	else
+                $lempty = false;
 
             $out .= $line . "\n";
         }
 
-        if ($lempty) {
+        if ($lempty)
             $out = trim($out);
-        }
 
         $out = strip_tags($out);
         $out = preg_replace($email_regex, '<a href="mailto:$0">$0</a>', $out);
-        $out = preg_replace_callback(
-            $html_regex,
-            function ($matches) {
-                if (substr($matches[0], 0, 4) == 'www.') {
-                    $web = $matches[0];
-                    $url = 'http://' . $web;
-                } else {
-                    $web = $matches[0];
-                    $url = $web;
-                }
+        $out = preg_replace_callback( $html_regex, 'href_replace', $out );
 
-                return '<a href="' . $url . '" target="_blank">' . $web . '</a>';
-            },
-            $out
-        );
-
-        if ($link_myself) {
-            if ($params[0] == '/') {
+        if ($link_myself)
+        {
+            if ($params[0] == '/')
                 $link = $params;
-            } else {
+            else
                 $link = $_SERVER['PHP_SELF'] . '?' . $params;
-            }
 
             $out = preg_replace($ip_regex, '<a href="' . $link . '">$0</a>', $out);
 
-            if (isset($result['regrinfo']['domain']['nserver'])) {
+            if (isset($result['regrinfo']['domain']['nserver']))
+            {
                 $nserver = $result['regrinfo']['domain']['nserver'];
-            } else {
-                $nserver = false;
             }
+        	else
+                $nserver = false;
 
-            if (isset($result['regrinfo']['network']['nserver'])) {
+            if (isset($result['regrinfo']['network']['nserver']))
+			{
                 $nserver = $result['regrinfo']['network']['nserver'];
             }
 
-            if (is_array($nserver)) {
+            if (is_array($nserver))
+			{
                 reset($nserver);
-                while (list($host, $ip) = each($nserver)) {
+                foreach( $nserver as $host => $ip )
+                {
                     $url = '<a href="' . str_replace('$0', $ip, $link) . "\">$host</a>";
                     $out = str_replace($host, $url, $out);
                     $out = str_replace(strtoupper($host), $url, $out);
@@ -158,4 +150,21 @@ class Utils extends Whois
 
         return str_replace("\n", "<br/>\n", $out);
     }
+}
+
+
+
+function href_replace($matches)
+{
+    if (substr($matches[0], 0, 4) == 'www.')
+    {
+        $web = $matches[0];
+        $url = 'http://' . $web;
+    }
+	else
+	{
+        $web = $matches[0];
+        $url = $web;
+    }
+    return '<a href="' . $url . '" target="_blank">' . $web . '</a>';
 }

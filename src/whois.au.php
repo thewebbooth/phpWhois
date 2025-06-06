@@ -27,9 +27,10 @@ if (!defined('__AU_HANDLER__'))
 
 require_once('whois.parser.php');
 
-class au_handler {
-
-    function parse($data_str, $query) {
+class au_handler
+{
+	function parse($data_str, $query)
+	{
 
         $items = array(
             'Domain Name:' => 'domain.name',
@@ -55,5 +56,4 @@ class au_handler {
         );
         return $r;
     }
-
 }

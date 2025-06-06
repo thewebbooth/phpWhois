@@ -23,22 +23,22 @@
  */
 
 if (!defined('__CAT_HANDLER__'))
-    define('__CAT_HANDLER__', 1);
+	define('__CAT_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class cat_handler {
+class cat_handler
+{
+	function parse($data_str, $query)
+	{
+		$r = array();
+		$r['regrinfo'] = generic_parser_b($data_str['rawdata']);
 
-    function parse($data_str, $query) {
-        $r = array();
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
+		if (!isset($r['regrinfo']['domain']['name']))
+			$r['regrinfo']['registered'] = 'no';
 
-        if (!isset($r['regrinfo']['domain']['name']))
-            $r['regrinfo']['registered'] = 'no';
-
-        $r['regyinfo']['referrer'] = 'http://www.domini.cat/';
-        $r['regyinfo']['registrar'] = 'Domini punt CAT';
-        return $r;
-    }
-
+		$r['regyinfo']['referrer'] = 'http://www.domini.cat/';
+		$r['regyinfo']['registrar'] = 'Domini punt CAT';
+		return $r;
+	}
 }

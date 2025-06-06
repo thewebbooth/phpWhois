@@ -27,9 +27,10 @@ if (!defined('__BH_HANDLER__'))
 
 require_once('whois.parser.php');
 
-class bh_handler {
-
-    function parse($data_str, $query) {
+class bh_handler
+{
+	function parse($data_str, $query)
+	{
         $items = array(
             'Sponsoring Registrar Name:' => 'domain.sponsor.name',
             'Sponsoring Registrar Email:' => 'domain.sponsor.email',

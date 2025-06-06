@@ -23,20 +23,20 @@
  */
 
 if (!defined('__BIZ_HANDLER__'))
-    define('__BIZ_HANDLER__', 1);
+	define('__BIZ_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class biz_handler {
-
-    function parse($data_str, $query) {
-        $r = array();
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata'], array(), '-md--y');
-        $r['regyinfo'] = array(
-            'referrer' => 'http://www.neulevel.biz',
-            'registrar' => 'NEULEVEL'
-        );
-        return $r;
-    }
-
+class biz_handler
+{
+	function parse($data_str, $query)
+	{
+		$r = array();
+		$r['regrinfo'] = generic_parser_b($data_str['rawdata'], array(), '-md--y');
+		$r['regyinfo'] = array(
+			'referrer' => 'http://www.neulevel.biz',
+			'registrar' => 'NEULEVEL'
+		);
+		return $r;
+		}
 }

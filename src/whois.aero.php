@@ -27,9 +27,10 @@ if (!defined('__AERO_HANDLER__'))
 
 require_once('whois.parser.php');
 
-class aero_handler {
-
-    function parse($data_str, $query) {
+class aero_handler
+{
+    function parse($data_str, $query)
+    {
         $r = array();
         $r['regrinfo'] = generic_parser_b($data_str['rawdata'], array(), 'ymd');
         $r['regyinfo'] = array(

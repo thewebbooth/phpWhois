@@ -27,9 +27,10 @@ if (!defined('__AG_HANDLER__'))
 
 require_once('whois.parser.php');
 
-class ag_handler {
-
-    function parse($data_str, $query) {
+class ag_handler
+{
+	function parse($data_str, $query)
+	{
         $r = array();
         $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
         $r['regyinfo'] = array(

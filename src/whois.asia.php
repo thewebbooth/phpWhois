@@ -27,16 +27,17 @@ if (!defined('__ASIA_HANDLER__'))
 
 require_once('whois.parser.php');
 
-class asia_handler {
-
-    function parse($data_str, $query) {
-        $r = array();
-        $r['regrinfo'] = generic_parser_b($data_str['rawdata']);
-        $r['regyinfo'] = array(
-            'referrer' => 'http://www.dotasia.org/',
-            'registrar' => 'DotAsia'
-        );
-        return $r;
-    }
+class asia_handler
+{
+	function parse ($data_str, $query)
+	{
+		$r = array();
+		$r['regrinfo'] = generic_parser_b($data_str['rawdata']);
+		$r['regyinfo'] = array(
+		                'referrer' => 'http://www.dotasia.org/',
+						'registrar' => 'DotAsia'
+		                );
+		return $r;
+	}
 
 }

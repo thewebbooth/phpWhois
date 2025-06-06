@@ -22,38 +22,21 @@
  * @copyright Copyright (c) 2014 Dmitry Lukashin
  */
 
-if (!defined('__EDU_HANDLER__'))
-	define('__EDU_HANDLER__', 1);
+
+if (!defined('__REHAB_HANDLER__'))
+	define('__REHAB_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class edu_handler
-{
-	function parse($data_str, $query)
+class rehab_handler
 	{
-		$items = array(
-			'domain.name' => 'Domain name:',
-			'domain.sponsor' => 'Registrar:',
-			'domain.nserver' => 'Name Servers:',
-			'domain.changed' => 'Domain record last updated:',
-			'domain.created' => 'Domain record activated:',
-			'owner'	=> 'Registrant:',
-			'admin' => 'Administrative Contact:',
-			'tech' => 'Technical Contact:',
-			'billing' => 'Billing Contact:'
-		);
-
-		$r = array();
-		$r['regrinfo'] = easy_parser($data_str['rawdata'], $items, 'dmy');
-
-		if (isset($b['tech']))
+	function parse($data_str, $query)
 		{
-			if ($r['regrinfo']['tech']['name'] == 'Same as above')
-				$r['regrinfo']['tech'] = $r['regrinfo']['admin'];
+		$r['regrinfo'] = generic_parser_b($data_str['rawdata']);
+		$r['regyinfo'] = array(
+                          'referrer' => 'https://www.identity.digital/',
+                          'registrar' => 'Identity Digital'
+                          );
+		return $r;
 		}
-
-		$r['regyinfo']['referrer'] = 'http://whois.educause.net';
-		$r['regyinfo']['registrar'] = 'EDUCASE';
-		return ($r);
 	}
-}

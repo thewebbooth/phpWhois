@@ -34,6 +34,7 @@ class cn_handler
         $items = array(
             'Domain Name:' => 'domain.name',
             'Domain Status:' => 'domain.status.',
+			'DNSSEC:' => 'domain.dnssec',
             'ROID:' => 'domain.handle',
             'Name Server:' => 'domain.nserver.',
             'Registration Date:' => 'domain.created',

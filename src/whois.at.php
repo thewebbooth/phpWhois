@@ -27,9 +27,10 @@ if (!defined('__AT_HANDLER__'))
 
 require_once('whois.parser.php');
 
-class at_handler {
-
-    function parse($data_str, $query) {
+class at_handler
+	{
+	function parse($data_str, $query)
+		{
         $translate = array(
             'fax-no' => 'fax',
             'e-mail' => 'email',
@@ -55,22 +56,28 @@ class at_handler {
         if (isset($reg['domain']['remarks']))
             unset($reg['domain']['remarks']);
 
-        if (isset($reg['domain']['descr'])) {
-            while (list($key, $val) = each($reg['domain']['descr'])) {
+        if (isset($reg['domain']['descr']))
+        {
+            foreach( $reg['domain']['descr'] as $key => $val )
+            {
                 $v = trim(substr(strstr($val, ':'), 1));
-                if (strstr($val, '[organization]:')) {
+                if (strstr($val, '[organization]:'))
+                {
                     $reg['owner']['organization'] = $v;
                     continue;
                 }
-                if (strstr($val, '[phone]:')) {
+                if (strstr($val, '[phone]:'))
+                {
                     $reg['owner']['phone'] = $v;
                     continue;
                 }
-                if (strstr($val, '[fax-no]:')) {
+                if (strstr($val, '[fax-no]:'))
+                {
                     $reg['owner']['fax'] = $v;
                     continue;
                 }
-                if (strstr($val, '[e-mail]:')) {
+                if (strstr($val, '[e-mail]:'))
+                {
                     $reg['owner']['email'] = $v;
                     continue;
                 }

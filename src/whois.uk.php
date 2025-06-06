@@ -37,28 +37,41 @@ class uk_handler {
             'domain.created' => 'Registered on:',
             'domain.changed' => 'Last updated:',
             'domain.expires' => 'Renewal date:',
+			'domain.expires' => 'Expiry date:',
             'domain.nserver' => 'Name servers:',
             'domain.sponsor' => 'Registrar:',
             'domain.status' => 'Registration status:',
             'domain.dnssec' => 'DNSSEC:',
-            '' => 'WHOIS lookup made at',
             'disclaimer' => '--',
         );
 
-        $r = array();
-        $r['regrinfo'] = get_blocks($data_str['rawdata'], $items);
+		$P = new WhoisParser( $data_str['rawdata'], $items, '--' );
+		$r[ 'regrinfo' ] = $P->Parse( );
 
-        if (isset($r['regrinfo']['owner'])) {
+//echo "<pre>";
+//print_r( $r );
+//echo "</pre>";
+
+		if( $r['regrinfo']['domain'][ 'status' ][0] == 'Registered until expiry date.' )
+		{
+			$r['regrinfo']['registered'] = 'yes';
+		}
+		elseif (isset($r['regrinfo']['owner']))
+		{
             $r['regrinfo']['owner']['organization'] = $r['regrinfo']['owner']['organization'][0];
             $r['regrinfo']['domain']['sponsor'] = $r['regrinfo']['domain']['sponsor'][0];
             $r['regrinfo']['registered'] = 'yes';
 
             $r = format_dates($r, 'dmy');
-        } else {
-            if (strpos($data_str['rawdata'][1], 'Error for ')) {
+        }
+    	else
+    	{
+            if (strpos($data_str['rawdata'][1], 'Error for '))
+            {
                 $r['regrinfo']['registered'] = 'yes';
                 $r['regrinfo']['domain']['status'] = 'invalid';
-            } else
+            }
+        	else
                 $r['regrinfo']['registered'] = 'no';
         }
 
@@ -68,5 +81,4 @@ class uk_handler {
         );
         return $r;
     }
-
 }
