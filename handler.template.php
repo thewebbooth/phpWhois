@@ -23,13 +23,15 @@
  */
 
 if (!defined('__XX_HANDLER__'))
-    define('__XX_HANDLER__', 1);
+	define('__XX_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class xx_handler {
-    function parse($data_str, $query) {
-        $r = array();
-        return $r;
-    }
+class xx_handler
+{
+	function parse($data_str, $query)
+	{
+		$r = array();
+		return $r;
+	}
 }

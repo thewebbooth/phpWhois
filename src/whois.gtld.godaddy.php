@@ -23,13 +23,14 @@
  */
 
 if (!defined('__GODADDY_HANDLER__'))
-    define('__GODADDY_HANDLER__', 1);
+	define('__GODADDY_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class godaddy_handler {
-
-    function parse($data_str, $query) {
+class godaddy_handler
+{
+    function parse($data_str, $query)
+    {
         $items = array(
             'owner' => 'Registrant:',
             'admin' => 'Administrative Contact',
@@ -48,5 +49,4 @@ class godaddy_handler {
         $r['tech'] = get_contact($r['tech'], array(), true);
         return format_dates($r, 'dmy');
     }
-
 }

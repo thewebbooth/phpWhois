@@ -27,9 +27,10 @@ if (!defined('__SRSPLUS_HANDLER__'))
 
 require_once('whois.parser.php');
 
-class srsplus_handler {
-
-    function parse($data_str, $query) {
+class srsplus_handler
+{
+    function parse($data_str, $query)
+    {
         $items = array(
             'owner' => 'Registrant:',
             'admin' => 'Administrative',
@@ -43,5 +44,4 @@ class srsplus_handler {
 
         return easy_parser($data_str, $items, 'ymd', array(), true, true);
     }
-
 }

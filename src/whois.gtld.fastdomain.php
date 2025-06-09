@@ -23,13 +23,14 @@
  */
 
 if (!defined('__FASTDOMAIN_HANDLER__'))
-    define('__FASTDOMAIN_HANDLER__', 1);
+	define('__FASTDOMAIN_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class fastdomain_handler {
-
-    function parse($data_str, $query) {
+class fastdomain_handler
+{
+    function parse($data_str, $query)
+    {
         $items = array(
             'owner' => 'Registrant Info:',
             'admin' => 'Administrative Info:',
@@ -68,5 +69,4 @@ class fastdomain_handler {
 
         return $r;
     }
-
 }

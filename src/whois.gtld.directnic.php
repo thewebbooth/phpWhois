@@ -27,9 +27,10 @@ if (!defined('__DIRECTNIC_HANDLER__'))
 
 require_once('whois.parser.php');
 
-class directnic_handler {
-
-    function parse($data_str, $query) {
+class directnic_handler
+{
+    function parse($data_str, $query)
+    {
         $items = array(
             'owner' => 'Registrant:',
             'admin' => 'Administrative Contact',
@@ -45,5 +46,4 @@ class directnic_handler {
 
         return easy_parser($data_str, $items, 'mdy', array(), false, true);
     }
-
 }

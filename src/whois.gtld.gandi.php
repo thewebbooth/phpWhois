@@ -23,13 +23,14 @@
  */
 
 if (!defined('__GANDI_HANDLER__'))
-    define('__GANDI_HANDLER__', 1);
+	define('__GANDI_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class gandi_handler {
-
-    function parse($data_str, $query) {
+class gandi_handler
+{
+    function parse($data_str, $query)
+    {
         $items = array(
             'owner' => 'owner-c',
             'admin' => 'admin-c',
@@ -48,5 +49,4 @@ class gandi_handler {
 
         return easy_parser($data_str, $items, 'dmy', $trans);
     }
-
 }

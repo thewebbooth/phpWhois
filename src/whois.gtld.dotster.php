@@ -23,13 +23,14 @@
  */
 
 if (!defined('__DOTSTER_HANDLER__'))
-    define('__DOTSTER_HANDLER__', 1);
+	define('__DOTSTER_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class dotster_handler {
-
-    function parse($data_str, $query) {
+class dotster_handler
+{
+    function parse($data_str, $query)
+    {
         $items = array(
             'owner' => 'Registrant:',
             'admin' => 'Administrative',
@@ -45,5 +46,4 @@ class dotster_handler {
 
         return easy_parser($data_str, $items, 'dmy');
     }
-
 }

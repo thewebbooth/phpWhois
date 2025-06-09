@@ -23,13 +23,14 @@
  */
 
 if (!defined('__WILDWESTDOMAINS_HANDLER__'))
-    define('__WILDWESTDOMAINS_HANDLER__', 1);
+	define('__WILDWESTDOMAINS_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class wildwestdomains_handler {
-
-    function parse($data_str, $query) {
+class wildwestdomains_handler
+{
+    function parse($data_str, $query)
+    {
         $items = array(
             'owner' => 'Registrant:',
             'admin' => 'Administrative Contact:',
@@ -44,5 +45,4 @@ class wildwestdomains_handler {
 
         return easy_parser($data_str, $items, 'mdy');
     }
-
 }

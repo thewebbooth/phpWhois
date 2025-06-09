@@ -23,23 +23,23 @@
  */
 
 if (!defined('__ALLDOMAINS_HANDLER__'))
-    define('__ALLDOMAINS_HANDLER__', 1);
+	define('__ALLDOMAINS_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class alldomains_handler {
+class alldomains_handler
+{
+	function parse($data_str, $query)
+	{
+		$items = array(
+			'owner'	=> 'Registrant:',
+			'admin' => 'Administrative',
+			'tech' => 'Technical',
+			'domain.name' => 'Domain name:',
+			'domain.sponsor' => 'Registrar:',
+			'domain.nserver.' => 'Domain servers in listed order:'
+		);
 
-    function parse($data_str, $query) {
-        $items = array(
-            'owner' => 'Registrant:',
-            'admin' => 'Administrative',
-            'tech' => 'Technical',
-            'domain.name' => 'Domain name:',
-            'domain.sponsor' => 'Registrar:',
-            'domain.nserver.' => 'Domain servers in listed order:'
-        );
-
-        return easy_parser($data_str, $items, 'ymd');
-    }
-
+		return easy_parser($data_str, $items, 'ymd');
+	}
 }

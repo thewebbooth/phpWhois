@@ -27,9 +27,10 @@ if (!defined('__DOMAINPEOPLE_HANDLER__'))
 
 require_once('whois.parser.php');
 
-class domainpeople_handler {
-
-    function parse($data_str, $query) {
+class domainpeople_handler
+{
+    function parse($data_str, $query)
+    {
 
         $items = array(
             'owner' => 'Registrant Contact:',
@@ -41,7 +42,6 @@ class domainpeople_handler {
             'domain.nserver.' => 'Name Servers:',
             'domain.created' => 'Creation date:',
             'domain.expires' => 'Expiration date:',
-//            'domain.changed' => 'Record last updated on',
             'domain.status' => 'Status:'
         );
 
@@ -50,5 +50,4 @@ class domainpeople_handler {
             $r['domain']['sponsor'] = $r['domain']['sponsor'][0];
         return $r;
     }
-
 }

@@ -23,30 +23,30 @@
  */
 
 if (!defined('__NAME_HANDLER__'))
-    define('__NAME_HANDLER__', 1);
+	define('__NAME_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class name_handler {
+class name_handler
+{
+	function parse($data_str, $query)
+	{
+		$items = array(
+			'owner' => 'REGISTRANT CONTACT INFO',
+			'admin' => 'ADMINISTRATIVE CONTACT INFO',
+			'tech' => 'TECHNICAL CONTACT INFO',
+			'billing' => 'BILLING CONTACT INFO',
+			'domain.name' => 'Domain Name:',
+			'domain.sponsor' => 'Registrar',
+			'domain.created' => 'Creation Date',
+			'domain.expires' => 'Expiration Date'
+		);
 
-    function parse($data_str, $query) {
-        $items = array(
-            'owner' => 'REGISTRANT CONTACT INFO',
-            'admin' => 'ADMINISTRATIVE CONTACT INFO',
-            'tech' => 'TECHNICAL CONTACT INFO',
-            'billing' => 'BILLING CONTACT INFO',
-            'domain.name' => 'Domain Name:',
-            'domain.sponsor' => 'Registrar',
-            'domain.created' => 'Creation Date',
-            'domain.expires' => 'Expiration Date'
-        );
+		$extra = array(
+			'phone:' => 'phone',
+			'email address:' => 'email'
+		);
 
-        $extra = array(
-            'phone:' => 'phone',
-            'email address:' => 'email'
-        );
-
-        return easy_parser($data_str, $items, 'y-m-d', $extra, false, true);
-    }
-
+		return easy_parser($data_str, $items, 'y-m-d', $extra, false, true);
+	}
 }

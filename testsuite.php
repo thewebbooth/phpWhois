@@ -24,7 +24,7 @@
  */
 
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-    require_once __DIR__ . '/vendor/autoload.php';
+	require_once __DIR__ . '/vendor/autoload.php';
 }
 
 use phpWhois\Whois;
@@ -180,13 +180,14 @@ function array_diff_assoc_recursive($array1, $array2) {
         }
     }
 
-    // Search missing items
+	// Search missing items
+	foreach($array2 as $key => $value)
+	{
+		if (!isset($array1[$key]))
+		{
+			$difference[$key] = array( 'previous' => $value, 'actual' => '(missing)');
+		}
+	}
 
-    foreach ($array2 as $key => $value) {
-        if (!isset($array1[$key])) {
-            $difference[$key] = array('previous' => $value, 'actual' => '(missing)');
-        }
-    }
-
-    return !isset($difference) ? false : $difference;
+	return !isset($difference) ? false : $difference;
 }

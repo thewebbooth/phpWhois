@@ -23,28 +23,28 @@
  */
 
 if (!defined('__DREAMHOST_HANDLER__'))
-    define('__DREAMHOST_HANDLER__', 1);
+	define('__DREAMHOST_HANDLER__', 1);
 
 require_once('whois.parser.php');
 
-class dreamhost_handler {
+class dreamhost_handler
+{
+	function parse($data_str, $query)
+	{
+		$items = array(
+			'owner' => 'Registrant Contact:',
+			'admin' => 'Administrative Contact:',
+			'tech' => 'Technical Contact:',
+			'billing' => 'Billing Contact:',
+			'domain.name' => 'Domain Name:',
+			'domain.nserver' => 'Domain servers in listed order:',
+			'domain.created' => 'Record created on',
+			'domain.expires' => 'Record expires on'
+		);
 
-    function parse($data_str, $query) {
-        $items = array(
-            'owner' => 'Registrant Contact:',
-            'admin' => 'Administrative Contact:',
-            'tech' => 'Technical Contact:',
-            'billing' => 'Billing Contact:',
-            'domain.name' => 'Domain Name:',
-            'domain.nserver' => 'Domain servers in listed order:',
-            'domain.created' => 'Record created on',
-            'domain.expires' => 'Record expires on'
-        );
-
-        $r = easy_parser($data_str, $items, 'dmy', array(), false, true);
-        if (isset($r['domain']['sponsor']) && is_array($r['domain']['sponsor']))
-            $r['domain']['sponsor'] = $r['domain']['sponsor'][0];
-        return $r;
-    }
-
+		$r = easy_parser($data_str, $items, 'dmy', array(), false, true);
+		if (isset($r['domain']['sponsor']) && is_array($r['domain']['sponsor']))
+		$r['domain']['sponsor'] = $r['domain']['sponsor'][0];
+		return $r;
+	}
 }

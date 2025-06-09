@@ -27,9 +27,10 @@ if (!defined('__CORPORATEDOMAINS_HANDLER__'))
 
 require_once('whois.parser.php');
 
-class corporatedomains_handler {
-
-    function parse($data_str, $query) {
+class corporatedomains_handler
+{
+    function parse($data_str, $query)
+    {
         $items = array(
             'owner' => 'Registrant:',
             'admin' => 'Administrative Contact',
@@ -45,5 +46,4 @@ class corporatedomains_handler {
 
         return easy_parser($data_str, $items, 'dmy', array(), false, true);
     }
-
 }
