@@ -35,31 +35,45 @@ class UkHandler extends AbstractHandler
      */
     public function parse(array $data_str, string $query): array
     {
-        $rawData = $this->removeBlankLines($data_str['rawdata']);
-
-        $r = [
-            'regrinfo' => static::getBlocks($rawData, static::ITEMS),
-            'regyinfo' => $this->parseRegistryInfo($data_str['rawdata']) ?? [
+		$R = array();
+		$P = new \phpWhois\WhoisParser( $data_str['rawdata'], static::ITEMS, '--' );
+		$r[ 'regrinfo' ] = $P->Parse( );
+		$r[ 'regyinfo' ] = $this->parseRegistryInfo($data_str['rawdata']) ?? [
                 'referrer'  => 'https://www.nominet.org.uk',
                 'registrar' => 'Nominet UK',
-            ],
-            'rawdata'  => $data_str['rawdata'] ?? null,
-        ];
+            ];
+		$r[ 'rawdata' ] = $data_str['rawdata'] ?? null;
 
-        if (isset($r['regrinfo']['owner'])) {
-            $r['regrinfo']['owner']['organization'] = $r['regrinfo']['owner']['organization'][0];
-            $r['regrinfo']['domain']['sponsor']     = $r['regrinfo']['domain']['sponsor'][0];
-            $r['regrinfo']['registered']            = 'yes';
-        } elseif (strpos($query, '.co.uk') && isset($r['regrinfo']['domain']['status'][0])) {
-            if ($r['regrinfo']['domain']['status'][0] === 'Registered until expiry date.') {
-                $r['regrinfo']['registered'] = 'yes';
-            }
-        } elseif (strpos($data_str['rawdata'][1], 'Error for ')) {
-            $r['regrinfo']['registered']       = 'yes';
-            $r['regrinfo']['domain']['status'] = 'invalid';
-        } else {
-            $r['regrinfo']['registered'] = 'no';
-        }
+
+
+		if( $r['regrinfo']['domain'][ 'status' ][0] == 'Registered until expiry date.' )
+		{
+			$r['regrinfo']['registered'] = 'yes';
+		}
+		elseif (isset($r['regrinfo']['owner']))
+		{
+			$r['regrinfo']['owner']['organization'] = $r['regrinfo']['owner']['organization'][0];
+			$r['regrinfo']['domain']['sponsor'] = $r['regrinfo']['domain']['sponsor'][0];
+			$r['regrinfo']['registered'] = 'yes';
+
+			$r = format_dates($r, 'dmy');
+		}
+		else
+		{
+			if (strpos($data_str['rawdata'][1], 'Error for '))
+				{
+				$r['regrinfo']['registered'] = 'yes';
+				$r['regrinfo']['domain']['status'] = 'invalid';
+				}
+			else
+				$r['regrinfo']['registered'] = 'no';
+		}
+
+		$r['regyinfo'] = array(
+			'referrer' => 'http://www.nominet.org.uk',
+			'registrar' => 'Nominet UK'
+		);
+		return $r;
 
         return static::formatDates($r, 'dmy');
     }
