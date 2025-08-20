@@ -224,9 +224,10 @@ class WhoisClient
                 }
             }
 
-            if (array_key_exists($this->query['server'], $this->NON_UTF8)) {
-                $raw = utf8_encode($raw);
-            }
+			if (array_key_exists($this->query['server'], $this->NON_UTF8))
+			{
+				$raw = mb_convert_encoding( $raw, 'UTF-8' );
+			}
 
             $output = explode("\n", $raw);
 
@@ -666,11 +667,15 @@ class WhoisClient
     protected function loadHandler(string $queryHandler)
     {
         $queryHandler = ucfirst($queryHandler);
-        $handlerName = "phpWhois\\Handlers\\{$queryHandler}Handler";
-        if (class_exists($handlerName)) {
-            return $handlerName;
-        }
-
+		$Filename = dirname(__FILE__) . "\\Handlers\\{$queryHandler}Handler.php";
+		if( file_exists( $Filename ) )
+		{
+			$handlerName = "phpWhois\\Handlers\\{$queryHandler}Handler";
+			if( class_exists($handlerName) )
+			{
+				return $handlerName;
+			}
+		}
         return false;
     }
 

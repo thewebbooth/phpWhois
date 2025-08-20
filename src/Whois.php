@@ -182,41 +182,28 @@ class Whois extends WhoisClient
             $tldtests[] = implode('.', $dp);
         }
 
-        // Search the correct whois server
-        $special_tlds = $this->WHOIS_SPECIAL;
 
-        foreach ($tldtests as $tld) {
-            // Test if we know in advance that no whois server is
-            // available for this domain and that we can get the
-            // data via http or whois request
-            if (isset($special_tlds[$tld])) {
-                $val = $special_tlds[$tld];
 
-                if ($val == '') {
-                    return $this->unknown();
-                }
+//	$F = GetIncludesDir( 'domain-data', 'tld.json' );
+	$F = realpath(__DIR__) . '/domain-data/tld.json';
+	$str = file_get_contents( $F );
 
-                $domain = substr($query, 0, -strlen($tld) - 1);
-                $val = str_replace('{domain}', $domain, $val);
-                $server = str_replace('{tld}', $tld, $val);
-                break;
-            }
-        }
 
-        if ($server == '') {
-            foreach ($tldtests as $tld) {
-                // Determine the top level domain, and it's whois server using
-                // DNS lookups on 'whois-servers.net'.
-                // Assumes a valid DNS response indicates a recognised tld (!?)
-                $cname = $tld . '.whois-servers.net';
+	$TldList = json_decode( $str, true ); // decode the JSON into an associative array
 
-                if (gethostbyname($cname) == $cname) {
-                    continue;
-                }
-                $server = $tld . '.whois-servers.net';
-                break;
-            }
-        }
+	foreach( $tldtests as $t )
+	{
+		if( isset( $TldList[ $t ] ) )
+		{
+			if( !empty( $TldList[ $t ][ 'host' ] ) )
+			{
+				$server = $TldList[ $t ][ 'host' ];
+				$tld = $t;
+			}
+			break;
+		}
+	}
+
 
         if ($tld && $server) {
             // If found, set tld and whois server in query array
@@ -231,12 +218,17 @@ class Whois extends WhoisClient
                     break;
                 }
 
+
+
                 // Regular handler exists for the tld ?
-                if (file_exists(__DIR__ . '/whois.' . $htld . '.php')) {
+                if($this->loadHandler( $htld))
+				{
                     $handler = $htld;
                     break;
                 }
             }
+
+
 
             // If there is a handler set it
             if ($handler != '') {
