@@ -31,6 +31,7 @@ if (!defined('__RIPE_HANDLER__')) {
 
 class ripe_handler
 {
+	public $deepWhois;
 
     function parse($data_str, $query)
     {
