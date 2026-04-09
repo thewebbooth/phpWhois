@@ -667,7 +667,7 @@ class WhoisClient
     protected function loadHandler(string $queryHandler)
     {
         $queryHandler = ucfirst($queryHandler);
-		$Filename = dirname(__FILE__) . "\\Handlers\\{$queryHandler}Handler.php";
+		$Filename = dirname(__FILE__) . "/Handlers/{$queryHandler}Handler.php";
 		if( file_exists( $Filename ) )
 		{
 			$handlerName = "phpWhois\\Handlers\\{$queryHandler}Handler";
